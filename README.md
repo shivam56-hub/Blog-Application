@@ -1,24 +1,60 @@
 # 📝 Blog Application
 
-A responsive and user-friendly **Blog Application** built using **HTML, CSS, and JavaScript**. The project provides a clean interface for browsing blog posts, searching content, and navigating through different pages. It demonstrates frontend development concepts, responsive design, and interactive user experience.
+A responsive and interactive Blog Application built using **HTML, CSS, and JavaScript**.
+
+The application allows users to register and log in, create and manage blog posts, search blogs, and manage their posts through a protected dashboard. Blog data is persisted using **LocalStorage**, while `blog.json` is used for initial/sample blog data.
+
+---
 
 ## 🚀 Features
 
-* Responsive design for desktop and mobile devices
-* Home page with blog listing
-* Search functionality
-* User Login page
-* User Registration page
-* Dashboard page
-* Create Blog page
-* Modern and clean UI
-* Smooth navigation
+### 🔐 Authentication
+- User Registration
+- User Login
+- Logout functionality
+- Login state management using LocalStorage
+- Protected Dashboard access
+- Protected Create Blog page
 
-## 🛠️ Tech Stack
+### 📝 Blog Management
+- Create new blog posts
+- View blogs on the Home page
+- View blogs on the Dashboard
+- Edit existing blogs
+- Delete blogs
+- Blog status support (Published / Draft)
+- Automatic blog ID generation
 
-* HTML5
-* CSS3
-* JavaScript (ES6)
+### 🔍 Search
+- Search blogs by:
+  - Blog title
+  - Category
+  - Author
+
+### 💾 Data Management
+- Initial blog data loaded from `blog.json`
+- Blog data stored in LocalStorage
+- Created, edited and deleted blogs remain available after page refresh
+- Home page and Dashboard use the same LocalStorage data
+
+### 🎨 UI & Responsive Design
+- Clean and user-friendly interface
+- Responsive layout
+- Blog cards
+- Dashboard for blog management
+- Navigation based on login state
+
+---
+
+## 🛠️ Technologies Used
+
+- **HTML5** – Structure of the application
+- **CSS3** – Styling and responsive design
+- **JavaScript (ES6+)** – Application logic and DOM manipulation
+- **LocalStorage** – Client-side data persistence
+- **JSON** – Initial blog data storage
+
+---
 
 ## 📁 Project Structure
 
@@ -65,8 +101,6 @@ cd Blog-Application
 
 * Backend integration with Node.js and Express.js
 * MongoDB database
-* User authentication
-* CRUD operations for blog posts
 * Image upload functionality
 * Comment system
 * Like and bookmark features
