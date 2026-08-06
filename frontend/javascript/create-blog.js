@@ -1,5 +1,5 @@
 const isLoggedIn = localStorage.getItem("isLoggedIn");
-if(isLoggedIn!== "true"){
+if (isLoggedIn !== "true") {
     alert("Please login first!")
 
     window.location.href = "login.html"
@@ -28,7 +28,7 @@ if (editBlogData) {
 }
 
 
-blogForm.addEventListener("submit", function(e) {
+blogForm.addEventListener("submit", async function (e) {
 
     e.preventDefault();
     const image = document.getElementById("image").value;
@@ -76,34 +76,39 @@ blogForm.addEventListener("submit", function(e) {
 
     // CREATE MODE
     else {
+        try {
+            const response = await fetch(
+                "http://localhost:5000/api/blogs",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        image,
+                        title,
+                        category,
+                        description,
+                        author,
+                        date,
+                        status
+                    })
+                }
+            );
+            const data = await response.json();
+            console.log("Backend response", data);
 
-        const newBlog = {
+            if (!response.ok) {
+                alert(data.message);
+                return;
+            }
+            alert(data.message)
 
-            id: Date.now(),
-            image,
-            title,
-            category,
-            description,
-            author,
-            date,
-            status
-
-        };
-
-        blogs.push(newBlog);
-
-        localStorage.setItem(
-            "blogs",
-            JSON.stringify(blogs)
-        );
-
-        alert("Blog Published Successfully!");
-
+            blogForm.reset();
+            window.location.href = "dashboard.html";
+        } catch (error) {
+            console.error("Create Blog Error: ", error);
+            alert("Unable to connect to server!")
+        }
     }
-
-
-    blogForm.reset();
-
-    window.location.href = "dashboard.html";
-
 });
