@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "title": "Getting Started with Web Development",
+    "category": "Technology",
+    "description": "Learn the basics of HTML, CSS, and JavaScript to build your first responsive website.",
+    "author": "Shivam",
+    "date": "2026-08-01",
+    "image": "./image/laptopWithPerson.jpg",
+    "status": "published"
+  },
+  {
+    "id": 2,
+    "title": "Introduction to Artificial Intelligence",
+    "category": "AI",
+    "description": "Discover how AI is transforming industries with machine learning, automation, and smart systems.",
+    "author": "Vansh",
+    "date": "2026-09-01",
+    "image": "./image/ai.jpg",
+    "status": "published"
+  },
+  {
+    "id": 3,
+    "title": "Why Learn React.js in 2026?",
+    "category": "React",
+    "description": "Explore the features of React.js and understand why it remains one of the most popular frontend libraries.",
+    "author": "Shyam",
+    "date": "2026-10-01",
+    "image": "./image/react.jpg",
+    "status": "published"
+  },
+  {
+    "id": 4,
+    "title": "Getting Started with Node.js",
+    "category": "Backend",
+    "description": "Learn how Node.js helps developers build fast and scalable backend applications using JavaScript.",
+    "author": "Krishna",
+    "date": "2026-11-01",
+    "image": "./image/nodejs.png",
+    "status": "published"
+  },
+  {
+    "id": 5,
+    "title": "Understanding MongoDB Basics",
+    "category": "MongoDB",
+    "description": "Learn how MongoDB stores data using collections and documents, making database management simple and flexible.",
+    "author": "Shivam",
+    "date": "2026-12-01",
+    "image": "./image/mongodb.jpg",
+    "status": "published"
+  },
+  {
+    "id": 6,
+    "title": "10 JavaScript Tips Every Beginner Should Know",
+    "category": "JavaScript",
+    "description": "Improve your JavaScript skills with useful tips on variables, functions, loops, arrays, and DOM manipulation.",
+    "author": "Gaurav",
+    "date": "2027-01-01",
+    "image": "./image/javascript.jpg",
+    "status": "published"
+  },
+  {
+    "id": 7,
+    "title": "Build Beautiful Websites with CSS",
+    "category": "CSS",
+    "description": "Discover Flexbox, Grid, animations, transitions, and responsive design techniques to create modern websites.",
+    "author": "Manish",
+    "date": "2027-02-01",
+    "image": "./image/css.png",
+    "status": "published"
+  },
+  {
+    "id": 8,
+    "title": "Roadmap to Become a Full Stack Developer",
+    "category": "Full Stack",
+    "description": "Follow a complete roadmap covering HTML, CSS, JavaScript, React, Node.js, Express, MongoDB, Git, and deployment.",
+    "author": "Ramkumar",
+    "date": "2027-03-01",
+    "image": "./image/full stack.jpg",
+    "status": "published"
+  }
+]

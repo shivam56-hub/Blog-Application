@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog-Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Blog-Application</a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+
+                <div id="guestLinks">
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                </div>
+
+                <div id="userLinks">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="create-blog.html">Create-Blog</a>
+                    <a href="#" id="logoutBtn">Logout</a>
+                </div>
+            </nav>
+            <div class="menu-btn" id="menuBtn">
+                ☰
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-container">
+            <div>
+                <h1>Share Your <span>Story</span></h1>
+                <p>Here! Discover interesting stories, share your thoughts,<br> and connect with readers through
+                    blogging.
+                </p>
+
+                <a href="create-blog.html" class="btn">Start-Writing →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- blog-section -->
+    <main class="container">
+        <div class="section-heading">
+            <h2>Latest Blog</h2>
+
+            <div class="search-box">
+                <input type="text" id="search" placeholder="Search Blog...">
+            </div>
+        </div>
+
+        <div class="blog-container blog-grid" id="blogContainer">
+            <!-- Blog are here or will be render here -->
+        </div>
+        </div>
+    </main>
+
+    <!-- footer -->
+
+    <footer class="footer">
+        <div class="footer-container container">
+
+            <div class="footer-section">
+                <h3>Blog Application</h3>
+                <p>Read, write, and share your knowledge with the world.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="create-blog.html">Create Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="create-blog.html">Create-Blog</a></li>
+                    <li><a href="register.html">Sign up</a></li>
+                    <li><a href="login.html">log in</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: shivam625@gmail.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Blog Application. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

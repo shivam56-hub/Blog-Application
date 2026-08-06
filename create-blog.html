@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create-Blog</title>
+    <link rel="stylesheet" href="create-blog.css">
+</head>
+<body>
+
+    <div class="create-blog-container">
+        <h1>Create New Blog</h1>
+        <form id="blogForm">
+
+            <label>Image URL</label>
+            <input type="text" id="image" placeholder="images/web.jpg">
+
+            <label>Blog Title</label>
+            <input type="text" id="title" required>
+
+            <label>Category</label>
+            <input type="text" id="category" required>
+
+            <label>Description</label>
+            <textarea id="description" rows="4" required></textarea>
+
+            <label>Author</label>
+            <input type="text" id="author" required>
+
+            <label>Date</label>
+            <input type="date" id="date" required>
+
+            <label>Status</label>
+
+            <select id="status">
+
+                <option value="published">
+                    Published
+                </option>
+
+                <option value="draft">
+                    Draft
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Publish Blog
+            </button>
+
+        </form>
+
+    </div>
+
+    <button id="goHome"><a href="index.html"> ← Go Home</a></button>
+    <script src="create-blog.js"></script>
+
+</body>
+
+</html>

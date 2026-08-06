@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Blog Application</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Blog-Application</a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="create-blog.html">Create-Blog</a>
+            <a href="#" id="logoutBtn">Logout</a>
+        </nav>
+        <div class="menu-btn" id="menuBtn">
+            ☰
+        </div>
+    </div>
+    <main class="dashboard">
+        <h1>Dashboard</h1>
+        <h2 id="welcomeMessage">Welcome 👋</h2>
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Blogs</h3>
+                <p id="totalBlogs">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Published</h3>
+                <p id="publishedBlogs">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Drafts</h3>
+                <p id="draftBlogs">0</p>
+            </div>
+        </div>
+        <div class="dashboard-header">
+            <h2>My Blogs</h2>
+            <a href="create-blog.html">
+                <button>Create Blog</button>
+            </a>
+        </div>
+        <div id="myBlogs">
+            <!-- <p>No blogs created yet.</p> -->
+        </div>
+    </main>
+
+    <script src="dashboard.js"></script>
+
+
+</body>
+
+</html>
