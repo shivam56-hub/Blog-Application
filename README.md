@@ -65,7 +65,6 @@ This project started as a frontend-based blog application and was extended with 
 3. Create Blog
 
 ## 📁 Project Structure
-
 Blog-Application/
 │
 ├── frontend/
@@ -76,27 +75,42 @@ Blog-Application/
 │   ├── create-blog.html
 │   │
 │   ├── css/
+│   │   ├── style.css
+│   │   ├── auth.css
+│   │   ├── dashboard.css
+│   │   └── blog.css
+│   │
+│   ├── js/
+│   │   ├── main.js
+│   │   ├── auth/
+│   │   │   ├── login.js
+│   │   │   └── register.js
+│   │   │
+│   │   ├── blog/
+│   │   │   ├── dashboard.js
+│   │   │   ├── create-blog.js
+│   │   │   └── blog.js
+│   │   │
 │   │   
 │   │
-│   └── js/
-│       ├── script.js
-│       ├── login.js
-│       ├── register.js
-│       ├── dashboard.js
-│       └── create-blog.js
+│   └── assets/
+│       ├── images/
+│       
 │
 ├── backend/
 │   ├── server.js
 │   ├── package.json
-│   |
 │   │
-│   └── routes/
-│       ├── authRoutes.js
-│       └── blogRoutes.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   └── blogRoutes.js
 │
-├── blog.json
+├── data/
+│   └── blog.json
 │
-└── README.md
+├── .gitignore
+├── README.md
+└── package.json
 
 
 ### 🔐 Authentication
