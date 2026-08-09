@@ -10,6 +10,10 @@ if (menuBtn && navLinks) {
 const search = document.getElementById("search");
 const blogContainer = document.getElementById("blogContainer");
 
+function viewBlog(id){
+    window.location.href = `blog-details.html?id=${id}`;
+}
+
 let allBlogs = [];
 
 function disBlogs(blogs) {
@@ -18,7 +22,10 @@ function disBlogs(blogs) {
     blogs.forEach(blog => {
         blogContainer.innerHTML += `
         <article class="blog-card">
-            <img src="${blog.image}" alt="${blog.title}">
+            // <img src="${blog.image}" alt="${blog.title}">
+            <img src = "http://localhost:5000${blog.image}"
+            alt="${blog.title}"
+            >
 
             <div class="blog-content">
                 <span class="category">${blog.category}</span>
@@ -26,54 +33,27 @@ function disBlogs(blogs) {
                 <p>${blog.description}</p>
                 <p><strong>By ${blog.author}</strong></p>
                 <span>${blog.date}</span>
-                <button class="read-btn">Read More</button>
+                // <button class="read-btn">Read More</button>
             </div>
         </article>
         `;
     });
 }
 if (blogContainer) {
-    const storeBlogs = localStorage.getItem("blogs");
-    if (storeBlogs) {
-        allBlogs = JSON.parse(storeBlogs)
-        disBlogs(allBlogs);
-
-    } else {
-        fetch("blog.json")
-            .then(response => response.json())
-            .then(data => {
-                allBlogs = data;
-                localStorage.setItem("blogs", JSON.stringify(data));
-                disBlogs(allBlogs)
-            })
-            .catch(error => {
-                console.error(error);
-            });
+   fetch("http://localhost:5000/api/blogs")
+   .then(response => response.json())
+   .then(data => {
+    if(!data.blogs){
+        throw new Error("Blogs data not found");
     }
+        allBlogs = data.blogs;
+        disBlogs(allBlogs)
+   })
+   .catch(error => {
+    console.error("Error fetching blogs: ",error);
+   });
 
 }
-
-// if (blogContainer) {
-
-//     fetch("blog.json")
-//         .then(response => response.json())
-//         .then(data => {
-
-//             const oldBlogs = JSON.parse(localStorage.getItem("blogs")) || [];
-
-//             const allBlogsData = [...data, ...oldBlogs];
-
-//             localStorage.setItem("blogs", JSON.stringify(allBlogsData));
-
-//             allBlogs = allBlogsData;
-
-//             disBlogs(allBlogs);
-
-//         })
-//         .catch(error => {
-//             console.error(error);
-//         });
-// }
 
 // localStorage.removeItem("blogs")
 if (search) {

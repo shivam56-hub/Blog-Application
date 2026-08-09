@@ -1,114 +1,116 @@
 const isLoggedIn = localStorage.getItem("isLoggedIn");
 if (isLoggedIn !== "true") {
-    alert("Please login first!")
+  alert("Please login first!");
 
-    window.location.href = "login.html"
+  window.location.href = "login.html";
 }
 
 const blogForm = document.getElementById("blogForm");
 
 const editBlogData = JSON.parse(localStorage.getItem("editBlog"));
 
-
 // Check if we are editing
+
 if (editBlogData) {
+  document.getElementById("title").value = editBlogData.title;
+  document.getElementById("category").value = editBlogData.category;
+  document.getElementById("description").value = editBlogData.description;
+  document.getElementById("author").value = editBlogData.author;
+  document.getElementById("date").value = editBlogData.date;
+  document.getElementById("status").value = editBlogData.status;
 
-    document.getElementById("title").value = editBlogData.title;
-    document.getElementById("category").value = editBlogData.category;
-    document.getElementById("description").value = editBlogData.description;
-    document.getElementById("author").value = editBlogData.author;
-    document.getElementById("date").value = editBlogData.date;
-    document.getElementById("status").value = editBlogData.status;
+  // Change heading
+  document.querySelector("h1").textContent = "Edit Blog";
 
-    // Change heading
-    document.querySelector("h1").textContent = "Edit Blog";
-
-    // Change button
-    document.querySelector("#blogForm button").textContent = "Update Blog";
+  // Change button
+  document.querySelector("#blogForm button").textContent = "Update Blog";
 }
 
-
 blogForm.addEventListener("submit", async function (e) {
-
-    e.preventDefault();
-    const image = document.getElementById("image").value;
-    const title = document.getElementById("title").value;
-    const category = document.getElementById("category").value;
-    const description = document.getElementById("description").value;
-    const author = document.getElementById("author").value;
-    const date = document.getElementById("date").value;
-    const status = document.getElementById("status").value;
+  e.preventDefault();
 
 
-    let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+  const title = document.getElementById("title").value;
+  const category = document.getElementById("category").value;
+  const description = document.getElementById("description").value;
+  const author = document.getElementById("author").value;
+  const date = document.getElementById("date").value;
+  const status = document.getElementById("status").value;
 
+  let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
 
-    // EDIT MODE
-    if (editBlogData) {
+  // EDIT MODE
+  if (editBlogData) {
+    blogs = blogs.map((blog) => {
+      if (blog.id === editBlogData.id) {
+        return {
+          ...blog,
+          image,
+          title,
+          category,
+          description,
+          author,
+          date,
+          status,
+        };
+      }
 
-        blogs = blogs.map(blog => {
+      return blog;
+    });
 
-            if (blog.id === editBlogData.id) {
+    localStorage.setItem("blogs", JSON.stringify(blogs));
 
-                return {
-                    ...blog,
-                    image,
-                    title,
-                    category,
-                    description,
-                    author,
-                    date,
-                    status
-                };
+    localStorage.removeItem("editBlog");
 
-            }
+    alert("Blog Updated Successfully!");
+  }
 
-            return blog;
-        });
+  // CREATE MODE
+  else {
+    try {
+      const imageFile = document.getElementById("image").files[0];
 
-        localStorage.setItem("blogs", JSON.stringify(blogs));
+      // Image Validate
 
-        localStorage.removeItem("editBlog");
+      if (!imageFile) {
+        alert("Please select an image");
+        return;
+      }
 
-        alert("Blog Updated Successfully!");
+      const title = document.getElementById("title").value;
+      const category = document.getElementById("category").value;
+      const description = document.getElementById("description").value;
+      const author = document.getElementById("author").value;
+      const date = document.getElementById("date").value;
+      const status = document.getElementById("status").value;
 
+      const formData = new FormData();
+      formData.append("image", imageFile);
+      formData.append("title", title);
+      formData.append("category", category);
+      formData.append("description", description);
+      formData.append("author", author);
+      formData.append("date", date);
+      formData.append("status", status);
+
+      const response = await fetch("http://localhost:5000/api/blogs", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      console.log("Backend response", data);
+
+      if (!response.ok) {
+        alert(data.message || "Unable to create blog");
+        return;
+      }
+      alert("Blog created successfully!");
+
+      blogForm.reset();
+      window.location.href = "dashboard.html";
+    } catch (error) {
+      console.error("Create Blog Error: ", error);
+      alert("Unable to connect to server!");
     }
-
-    // CREATE MODE
-    else {
-        try {
-            const response = await fetch(
-                "http://localhost:5000/api/blogs",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        image,
-                        title,
-                        category,
-                        description,
-                        author,
-                        date,
-                        status
-                    })
-                }
-            );
-            const data = await response.json();
-            console.log("Backend response", data);
-
-            if (!response.ok) {
-                alert(data.message);
-                return;
-            }
-            alert(data.message)
-
-            blogForm.reset();
-            window.location.href = "dashboard.html";
-        } catch (error) {
-            console.error("Create Blog Error: ", error);
-            alert("Unable to connect to server!")
-        }
-    }
+  }
 });
