@@ -1,17 +1,14 @@
-const { response } = require("express");
-const { param } = require("../../backend/routes/blogRoute");
-
 const blogDetails = document.getElementById("blogDetails");
 
 // get blog ID from URL
 
 const params = new URLSearchParams(window.location.search);
-const blogId = param.get("id");
+const blogId = params.get("id");
 
 if (!blogId) {
     blogDetails.innerHTML = "<h2>Blog not found </h2>";
 } else {
-    fetch(`http://localhost:5000/api/blog/${blogId}`)
+    fetch(`http://localhost:5000/api/blogs/${blogId}`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Blog not found");
@@ -22,18 +19,20 @@ if (!blogId) {
             const blog = data.blog;
             blogDetails.innerHTML = `
         <img 
-            src="http://localhost:5000${blog.image}" 
-            alt="${blog.title}"
+          class="blog-details-image"
+          src="http://localhost:5000${blog.image}" 
+          alt="${blog.title}"
         >
         <span class="category">
             ${blog.category}
         </span>
-        <h2>
+        <h1 class="blog-details-title>
             ${blog.title}
-        </h2>
-        <p>
+        </h1>
+        <p class="blog-details-description>
           ${blog.description}
         </p>
+        <div class="blog-meta">
         <p>
           <strong>By ${blog.author}</strong>
         </p>
@@ -41,13 +40,19 @@ if (!blogId) {
         ${blog.date}
         </p>
         <p>
-        Status:${blog.status}
+         <strong>Status:</strong> 
+         <span class="status">${blog.status}</span>
         </p>
+        </div>
         `;
         })
-        .catch(error => {
-            console.error("Error",error);
-            blogDetails.innerHTMLm=`<h2>Unable to load blog</h2>
+        .catch((error) => {
+            console.error("Error", error);
+            blogDetails.innerHTMLm = `
+            <div class="error-message">
+            <h2>Unable to load blog</h2>
+            <p>Please try again later.</p>
+            </div>
             `;
-        })
+        });
 }

@@ -11,6 +11,7 @@ const search = document.getElementById("search");
 const blogContainer = document.getElementById("blogContainer");
 
 function viewBlog(id){
+    console.log("Blog ID: ",id)
     window.location.href = `blog-details.html?id=${id}`;
 }
 
@@ -22,7 +23,6 @@ function disBlogs(blogs) {
     blogs.forEach(blog => {
         blogContainer.innerHTML += `
         <article class="blog-card">
-            // <img src="${blog.image}" alt="${blog.title}">
             <img src = "http://localhost:5000${blog.image}"
             alt="${blog.title}"
             >
@@ -33,7 +33,7 @@ function disBlogs(blogs) {
                 <p>${blog.description}</p>
                 <p><strong>By ${blog.author}</strong></p>
                 <span>${blog.date}</span>
-                // <button class="read-btn">Read More</button>
+                <button class="read-btn" onclick="viewBlog('${blog._id}')">Read More</button>
             </div>
         </article>
         `;
