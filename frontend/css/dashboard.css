@@ -230,6 +230,34 @@
     color: white ;
 }
 
+.status-btn {
+  border: none;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Published */
+.status-btn.published {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Draft */
+.status-btn.draft {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
    /* RESPONSIVE */
 @media (max-width: 768px) {
   .dashboard-stats {

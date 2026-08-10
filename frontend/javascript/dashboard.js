@@ -91,6 +91,10 @@ async function renderDashboard() {
                             By ${blog.author} • ${blog.date}
                         </small>
 
+                       <button class="status-btn" onclick="toggleStatus('${blog._id}','${blog.status}')">
+                       ${blog.status}
+                       </button>
+
                     </div>
 
                     <div class="blog-actions">
@@ -115,101 +119,131 @@ async function renderDashboard() {
 
 renderDashboard();
 
-// function renderDashboard() {
+async function toggleStatus(id, currentStatus) {
 
-//     const blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+    const newStatus =
+        currentStatus.toLowerCase() === "published"
+            ? "draft"
+            : "published";
 
-//     myBlogs.innerHTML = "";
+    try {
 
-//     // Statistics
-//     document.getElementById("totalBlogs").textContent = blogs.length;
+        const response = await fetch(
+            `http://localhost:5000/api/blogs/${id}/status`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    status: newStatus
+                })
+            }
+        );
 
-//     const published = blogs.filter(
-//         blog => blog.status === "published"
-//     ).length;
+        const data = await response.json();
 
-//     const drafts = blogs.filter(
-//         blog => blog.status === "draft"
-//     ).length;
+        console.log("PATCH response:", data);
 
-//     document.getElementById("publishedBlogs").textContent = published;
-//     document.getElementById("draftBlogs").textContent = drafts;
+        if (!response.ok) {
+            alert(
+                data.message ||
+                "Unable to update status"
+            );
+            return;
+        }
 
-//     // Render Blogs
-//     blogs.forEach(blog => {
+        alert("Blog status updated successfully!");
 
-//         myBlogs.innerHTML += `;
-//             <div class="dashboard-blog">
+        // MongoDB se fresh data load
+        await renderDashboard();
 
-//                 <img
-//                     src="${blog.image || ""}"
-//                     alt="${blog.title}"
-//                 >
+    } catch (error) {
 
-//                 <div class="blog-info">
+        console.error(
+            "PATCH Status Error:",
+            error
+        );
 
-//                     <span class="category">
-//                         ${blog.category}
-//                     </span>
-
-//                     <h3>
-//                         ${blog.title}
-//                     </h3>
-
-//                     <p>
-//                         ${blog.description}
-//                     </p>
-
-//                     <small>
-//                         By ${blog.author} • ${blog.date}
-//                     </small>
-
-//                 </div>
-
-//                 <div class="blog-actions">
-
-//                     <button onclick="editBlog(${blog.id})">
-//                         Edit
-//                     </button>
-
-//                     <button onclick="deleteBlog(${blog.id})">
-//                         Delete
-//                     </button>
-
-//                 </div>
-
-//             </div>
-//         `;
-
-//     });
-// }
-
-function deleteBlog(id) {
-  let blogs = JSON.parse(localStorage.getItem("blogs")) || [];
-
-  const confirmDelete = confirm("Are you sure you want to delete this blog?");
-
-  if (!confirmDelete) {
-    return;
-  }
-
-  blogs = blogs.filter((blog) => blog.id !== id);
-
-  localStorage.setItem("blogs", JSON.stringify(blogs));
-
-  renderDashboard();
+        alert("Unable to connect to server!");
+    }
 }
 
-function editBlog(id) {
-  const blogs = JSON.parse(localStorage.getItem("blogs")) || [];
-  const blog = blogs.find((blog) => blog.id === id);
-  if (!blog) {
-    alert("Blog not found");
-    return;
-  }
-  localStorage.setItem("editBlog", JSON.stringify(blog));
 
-  window.location.href = "create-blog.html";
+async function deleteBlog(id) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this blog?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            `http://localhost:5000/api/blogs/${id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        const data = await response.json();
+
+        console.log("Delete response:", data);
+
+        if (!response.ok) {
+            alert(data.message || "Unable to delete blog");
+            return;
+        }
+
+        alert("Blog deleted successfully!");
+
+        // MongoDB se blogs dobara load
+        await renderDashboard();
+
+    } catch (error) {
+
+        console.error("Delete Error:", error);
+
+        alert("Unable to connect to server!");
+    }
+}
+
+async function editBlog(id) {
+    try {
+        console.log("Edit Clicked");
+        console.log("Editing Blog ID:", id);
+
+        const response = await fetch(
+            `http://localhost:5000/api/blogs/${id}`
+        );
+        console.log("Response Status: ", response.status);
+
+        const data = await response.json();
+
+        console.log("Edit response:", data);
+
+        if (!response.ok) {
+            alert(data.message || "Blog not found");
+            return;
+        }
+
+        localStorage.setItem(
+            "editBlog",
+            JSON.stringify(data.blog)
+        );
+        console.log("Saved editBlog", data.blog)
+
+        window.location.href = "create-blog.html";
+
+    } catch (error) {
+
+        console.error("Edit Error:", error);
+
+        alert("Unable to connect to server!");
+    }
 }
 
 const logoutBtn = document.getElementById("logoutBtn");
