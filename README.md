@@ -1,6 +1,6 @@
 # 📝 Blog Application
 
-A full-stack Blog Application developed using **HTML, CSS, JavaScript, Node.js, and Express.js**.
+A full-stack Blog Application developed using **HTML, CSS, JavaScript, Node.js, and Express.js,mongoDB**.
 
 This project started as a frontend-based blog application and was extended with a Node.js and Express backend to create REST APIs for user registration, user login, and blog creation.
 
@@ -23,8 +23,7 @@ This project started as a frontend-based blog application and was extended with 
 - Blog categories
 - Author and date information
 - Blog status (Published/Draft)
-- LocalStorage-based frontend data management
-- JSON-based initial blog data
+- Image upload functionality
 
 ### Backend
 
@@ -37,6 +36,7 @@ This project started as a frontend-based blog application and was extended with 
 - JSON request/response handling
 - CORS configuration
 - Frontend-to-backend API integration
+- MongoDB database
 
 ---
 
@@ -55,7 +55,10 @@ This project started as a frontend-based blog application and was extended with 
 - REST API
 - CORS
 - dotenv
+- multer
 
+### Database
+- MongoDB
 ---
 
 ## 🔗 REST APIs
@@ -73,12 +76,14 @@ Blog-Application/
 │   ├── register.html
 │   ├── dashboard.html
 │   ├── create-blog.html
+│   ├── blog-details.html
 │   │
 │   ├── css/
 │   │   ├── style.css
 │   │   ├── auth.css
 │   │   ├── dashboard.css
 │   │   └── blog.css
+│   │   └── blog-details.css
 │   │
 │   ├── js/
 │   │   ├── main.js
@@ -90,14 +95,15 @@ Blog-Application/
 │   │   │   ├── dashboard.js
 │   │   │   ├── create-blog.js
 │   │   │   └── blog.js
-│   │   │
+│   │   │   └── blog-details.js
 │   │   
 │   │
-│   └── assets/
+│   └── 
 │       ├── images/
 │       
 │
 ├── backend/
+│   ├── config/
 │   ├── server.js
 │   ├── package.json
 │   │
@@ -105,8 +111,6 @@ Blog-Application/
 │   │   ├── authRoutes.js
 │   │   └── blogRoutes.js
 │
-├── data/
-│   └── blog.json
 │
 ├── .gitignore
 ├── README.md
@@ -137,10 +141,10 @@ Blog-Application/
   - Author
 
 ### 💾 Data Management
-- Initial blog data loaded from `blog.json`
-- Blog data stored in LocalStorage
+- Initial blog data loaded from `Database`
+- Blog data stored in MongoDB
 - Created, edited and deleted blogs remain available after page refresh
-- Home page and Dashboard use the same LocalStorage data
+- Home page and Dashboard use the same database data
 
 ### 🎨 UI & Responsive Design
 - Clean and user-friendly interface
@@ -187,12 +191,13 @@ The frontend currently connects to the backend for:
 * Fetch API
 * CORS
 * HTTP methods
+* connect database(mongoDB)
+* mongooses 
+* multer
 
 
 ## 🔮 Future Improvements
 
-* MongoDB database
-* Image upload functionality
 * Comment system
 * Like and bookmark features
 
