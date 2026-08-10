@@ -1,8 +1,8 @@
 # 📝 Blog Application
 
-A full-stack Blog Application developed using **HTML, CSS, JavaScript, Node.js, and Express.js,mongoDB**.
+A full-stack Blog Application developed using **HTML, CSS, JavaScript, Node.js, Express.js,mongoDB and CRUD operations.**.
 
-This project started as a frontend-based blog application and was extended with a Node.js and Express backend to create REST APIs for user registration, user login, and blog creation.
+This project started as a frontend-based blog application and was extended with a Node.js and Express backend to create REST APIs for user registration, user login, and blog creation and CRUD operation is used for Create, Read, Update and Delete.
 
 ---
 
@@ -194,6 +194,7 @@ The frontend currently connects to the backend for:
 * connect database(mongoDB)
 * mongooses 
 * multer
+* CRUD
 
 
 ## 🔮 Future Improvements
