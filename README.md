@@ -1,65 +1,102 @@
 # 📝 Blog Application
 
-A full-stack Blog Application developed using **HTML, CSS, JavaScript, Node.js, Express.js,mongoDB and CRUD operations.**.
-
-This project started as a frontend-based blog application and was extended with a Node.js and Express backend to create REST APIs for user registration, user login, and blog creation and CRUD operation is used for Create, Read, Update and Delete.
+A full-stack Blog Application that allows users to register, login, create and manage their own blogs. The application uses JWT authentication for secure user access and MongoDB for storing users and blog data.
 
 ---
 
 ## 🚀 Features
 
-### Frontend
-
-- Responsive Home Page
+### 👤 User Authentication
 - User Registration
 - User Login
+- Password hashing using bcrypt
+- JWT-based authentication
+- Protected routes
+- User profile
 - Logout functionality
-- Protected Dashboard
-- Create Blog
-- Edit Blog
-- Delete Blog
-- Search Blogs
-- Dynamic Blog Rendering
-- Blog categories
-- Author and date information
-- Blog status (Published/Draft)
-- Image upload functionality
 
-### Backend
-
-- Node.js backend server
-- Express.js server
-- REST API architecture
-- User Registration API
-- User Login API
-- Create Blog API
-- JSON request/response handling
-- CORS configuration
-- Frontend-to-backend API integration
-- MongoDB database
-
+  
 ---
 
+### 📝 Blog Management
+- Create a new blog
+- Upload blog images
+- Edit blogs
+- Delete blogs
+- Publish or save blogs as drafts
+- View user-specific blogs
+- Blog status management
+
+
+### 🔎 Search
+- Search blogs by:
+  - Title
+  - Category
+  - Author
+
+### 📊 Dashboard
+- Total number of blogs
+- Published blogs count
+- Draft blogs count
+- Display logged-in user's blogs
+- Edit and delete blog options
 ## 🛠️ Technologies Used
 
 ### Frontend
 - HTML5
 - CSS3
 - JavaScript (ES6+)
-- JSON
-- LocalStorage
+- Bootstrap 
 
 ### Backend
 - Node.js
 - Express.js
 - REST API
 - CORS
-- dotenv
-- multer
 
 ### Database
 - MongoDB
+- Mongoose
 ---
+
+### Authentication & Security
+- JWT (JSON Web Token)
+- bcrypt.js
+
+### Development Tools
+- VS Code
+- Thunder Client
+- Git & GitHub
+
+
+## 📁 Project Structure
+
+```text
+Blog-Application/
+│
+├── backend/
+│   ├── config/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── uploads/
+│   ├── .env
+│   ├── .gitignore
+│   ├── package.json
+│   └── server.js
+│
+├── frontend/
+│   ├── css/
+│   ├── javascript/
+│   ├── images/
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── create-blog.html
+│   └── profile.html
+│
+└── README.md
 
 ## 🔗 REST APIs
 
@@ -67,63 +104,11 @@ This project started as a frontend-based blog application and was extended with 
 2. User Login
 3. Create Blog
 
-## 📁 Project Structure
-Blog-Application/
-│
-├── frontend/
-│   ├── index.html
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   ├── create-blog.html
-│   ├── blog-details.html
-│   │
-│   ├── css/
-│   │   ├── style.css
-│   │   ├── auth.css
-│   │   ├── dashboard.css
-│   │   └── blog.css
-│   │   └── blog-details.css
-│   │
-│   ├── js/
-│   │   ├── main.js
-│   │   ├── auth/
-│   │   │   ├── login.js
-│   │   │   └── register.js
-│   │   │
-│   │   ├── blog/
-│   │   │   ├── dashboard.js
-│   │   │   ├── create-blog.js
-│   │   │   └── blog.js
-│   │   │   └── blog-details.js
-│   │   
-│   │
-│   └── 
-│       ├── images/
-│       
-│
-├── backend/
-│   ├── config/
-│   ├── server.js
-│   ├── package.json
-│   │
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   └── blogRoutes.js
-│
-│
-├── .gitignore
-├── README.md
-└── package.json
-
-
 ### 🔐 Authentication
 - User Registration
 - User Login
 - Logout functionality
-- Login state management using LocalStorage
 - Protected Dashboard access
-- Protected Create Blog page
 
 ### 📝 Blog Management
 - Create new blog posts
@@ -134,11 +119,6 @@ Blog-Application/
 - Blog status support (Published / Draft)
 - Automatic blog ID generation
 
-### 🔍 Search
-- Search blogs by:
-  - Blog title
-  - Category
-  - Author
 
 ### 💾 Data Management
 - Initial blog data loaded from `Database`
@@ -173,6 +153,9 @@ cd backend
 3. Open `index.html` in your browser or use the VS Code Live Server extension.
 4. Run npm Start for backend server
 
+## Create .env
+- Make a .env file in our backend folder
+  
 ## 🛠️ frontend & Backend Integration
 The frontend communicates with the Express backend using Javascript fetch().
 The frontend currently connects to the backend for:
