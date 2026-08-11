@@ -5,20 +5,12 @@ if (!token) {
   window.location.href = "login.html";
 }
 
-// const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-// if (isLoggedIn !== "true") {
-//   alert("Please login first!");
-//   window.location.href = "login.html";
-// }
 
 const blogForm = document.getElementById("blogForm");
 
-// const editBlogData = JSON.parse(localStorage.getItem("editBlog"));
 
-// ===============================
 // CHECK IF WE ARE EDITING
-// ===============================
+
 
 const editBlogData = JSON.parse(localStorage.getItem("editBlog"));
 
@@ -33,9 +25,9 @@ if (editBlogData) {
   document.querySelector("#blogForm button").textContent = "Update Blog";
 }
 
-// ===============================
+
 // FORM SUBMIT
-// ===============================
+
 
 blogForm.addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -48,9 +40,9 @@ blogForm.addEventListener("submit", async function (e) {
     return;
   }
 
-  // ==========================================
+
   // EDIT MODE → PUT
-  // ==========================================
+
 
   if (editBlogData) {
     try {
@@ -129,9 +121,9 @@ blogForm.addEventListener("submit", async function (e) {
     return;
   }
 
-  // ==========================================
+
   // CREATE MODE → POST
-  // ==========================================
+
 
   try {
     const imageFile = document.getElementById("image").files[0];
