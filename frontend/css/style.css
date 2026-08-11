@@ -261,6 +261,7 @@ nav a:active {
     position: absolute;
     top: 60px;
     right: 0;
+    height: auto;
     width: 250px;
     background: white;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -276,6 +277,11 @@ nav a:active {
   }
 
   #guestLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  #userLinks {
     display: flex;
     flex-direction: column;
     gap: 18px;

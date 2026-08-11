@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="./css/profile.css">
+</head>
+
+<body>
+    <main class="profile-container">
+        <section class="profile-card" aria-labelledby="profileTitle">
+            <!-- Profile Icon -->
+            <div class="profile-icon" aria-hidden="true">
+                 👤 
+            </div>
+            <!-- Profile Heading -->
+            <h1 id="profileTitle">My Profile</h1>
+            <!-- User Information -->
+            <div class="profile-info">
+                <div class="info-box"> <span class="label">Name</span> <span id="userName">Loading...</span> </div>
+                <div class="info-box"> <span class="label">Email</span> <span id="userEmail">Loading...</span> </div>
+            </div>
+            <!-- Actions -->
+            <div class="profile-actions"> 
+                <button type="button" id="backBtn" class="back-btn">
+                     ← Back to Dashboard
+                </button>
+                 <button type="button" id="logoutBtn" class="logout-btn">
+                     Logout
+                 </button>
+             </div>
+        </section>
+    </main>
+    <script src="./javascript/profile.js"></script>
+
+</body>
+
+</html>

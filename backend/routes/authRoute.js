@@ -1,6 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const route = express.Router();
 
@@ -45,7 +47,7 @@ route.post("/register", async (req, res) => {
 
     res.status(500).json({
       message: "Server error",
-      error: error.message
+      error: error.message,
     });
   }
 });
@@ -79,8 +81,21 @@ route.post("/login", async (req, res) => {
       });
     }
 
-    res.status(201).json({
-      message: "Login Successfully",
+    // Generate JWT
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      },
+    );
+
+      res.status(200).json({
+      message: "Login successful",
+      token,
       user: {
         id: user._id,
         name: user.name,
@@ -88,60 +103,35 @@ route.post("/login", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("error");
+    console.error("Login Error: ",error);
 
     res.status(500).json({
       message: "Server error",
-      error: error.message
+      error: error.message,
     });
   }
 });
 
+route.get("/profile", authMiddleware, async (req, res) => {
+  try{
+    const user = await User.findById(req.user.id).select("-password");
+
+    if(!user){
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+    res.status(201).json({
+      user,
+    });
+  }catch(error){
+    console.error("Profile Error: ",error);
+
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+});
 
 module.exports = route;
-
-// const express = require("express");
-
-// const route = express.Router();
-// route.post("/register", (req,res) => {
-//     const {name, email, password} = req.body;
-
-//     if(!name || !email || !password){
-//         return res.status(400).json({
-//             message: "All fields are required..."
-//         })
-//     }
-
-//     res.status(201).json({
-//         message: "User Registered successfully",
-//         user: {
-//             name,
-//             email
-//         }
-//     })
-// })
-
-// route.post("/login", (req,res) => {
-//     const {email, password} = req.body;
-
-//     if(!email || !password){
-//         return res.status(400).json({
-//             message: "Email and password are required..."
-//         })
-//     }
-//     if(email ==="shivam@gmail.com" && password === "shivam123"){
-//         return res.status(201).json({
-//         message: "Login successfully",
-//         user: {
-//             name : "Shivam",
-//             email
-//         }
-//     })
-//     }
-//     return res.status(401).json({
-//         message: "Invalid email and password"
-//     })
-
-// })
-
-// module.exports = route;

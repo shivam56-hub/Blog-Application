@@ -33,10 +33,21 @@ const myBlogs = document.getElementById("myBlogs");
 async function renderDashboard() {
   try {
     console.log("Fetching blogs..");
-    const response = await fetch("http://localhost:5000/api/blogs");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login First");
+      window.location.href = "login.html";
+    }
+    const response = await fetch("http://localhost:5000/api/blogs/my-blogs", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     const data = await response.json();
 
-    console.log("Response:", response);
+    console.log("Response:", response.status);
     console.log("Data", data);
 
     if (!response.ok) {
@@ -120,130 +131,128 @@ async function renderDashboard() {
 renderDashboard();
 
 async function toggleStatus(id, currentStatus) {
+  const newStatus =
+    currentStatus.toLowerCase() === "published" ? "draft" : "published";
 
-    const newStatus =
-        currentStatus.toLowerCase() === "published"
-            ? "draft"
-            : "published";
-
-    try {
-
-        const response = await fetch(
-            `http://localhost:5000/api/blogs/${id}/status`,
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    status: newStatus
-                })
-            }
-        );
-
-        const data = await response.json();
-
-        console.log("PATCH response:", data);
-
-        if (!response.ok) {
-            alert(
-                data.message ||
-                "Unable to update status"
-            );
-            return;
-        }
-
-        alert("Blog status updated successfully!");
-
-        // MongoDB se fresh data load
-        await renderDashboard();
-
-    } catch (error) {
-
-        console.error(
-            "PATCH Status Error:",
-            error
-        );
-
-        alert("Unable to connect to server!");
-    }
-}
-
-
-async function deleteBlog(id) {
-
-    const confirmDelete = confirm(
-        "Are you sure you want to delete this blog?"
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `http://localhost:5000/api/blogs/${id}/status`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          status: newStatus,
+        }),
+      },
     );
 
-    if (!confirmDelete) {
-        return;
+    const data = await response.json();
+
+    console.log("PATCH response:", data);
+
+    if (!response.ok) {
+      alert(data.message || "Unable to update status");
+      return;
     }
 
-    try {
+    alert("Blog status updated successfully!");
 
-        const response = await fetch(
-            `http://localhost:5000/api/blogs/${id}`,
-            {
-                method: "DELETE"
-            }
-        );
+    // MongoDB se fresh data load
+    await renderDashboard();
+  } catch (error) {
+    console.error("PATCH Status Error:", error);
 
-        const data = await response.json();
+    alert("Unable to connect to server!");
+  }
+}
 
-        console.log("Delete response:", data);
+async function deleteBlog(id) {
+  const confirmDelete = confirm("Are you sure you want to delete this blog?");
 
-        if (!response.ok) {
-            alert(data.message || "Unable to delete blog");
-            return;
-        }
+  if (!confirmDelete) {
+    return;
+  }
 
-        alert("Blog deleted successfully!");
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`http://localhost:5000/api/blogs/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-        // MongoDB se blogs dobara load
-        await renderDashboard();
+    const data = await response.json();
 
-    } catch (error) {
+    console.log("Delete response:", data);
 
-        console.error("Delete Error:", error);
-
-        alert("Unable to connect to server!");
+    if (!response.ok) {
+      alert(data.message || "Unable to delete blog");
+      return;
     }
+
+    alert("Blog deleted successfully!");
+
+    // MongoDB se blogs dobara load
+    await renderDashboard();
+  } catch (error) {
+    console.error("Delete Error:", error);
+
+    alert("Unable to connect to server!");
+  }
 }
 
 async function editBlog(id) {
-    try {
-        console.log("Edit Clicked");
-        console.log("Editing Blog ID:", id);
+  try {
+    console.log("Edit Clicked");
+    console.log("Editing Blog ID:", id);
 
-        const response = await fetch(
-            `http://localhost:5000/api/blogs/${id}`
-        );
-        console.log("Response Status: ", response.status);
-
-        const data = await response.json();
-
-        console.log("Edit response:", data);
-
-        if (!response.ok) {
-            alert(data.message || "Blog not found");
-            return;
-        }
-
-        localStorage.setItem(
-            "editBlog",
-            JSON.stringify(data.blog)
-        );
-        console.log("Saved editBlog", data.blog)
-
-        window.location.href = "create-blog.html";
-
-    } catch (error) {
-
-        console.error("Edit Error:", error);
-
-        alert("Unable to connect to server!");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login first!");
+      window.location.href = "login.html";
+      return;
     }
+    const response = await fetch(`http://localhost:5000/api/blogs/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("Response Status: ", response.status);
+
+    const data = await response.json();
+
+    console.log("Edit response:", data);
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        alert("Session expired. Please login again!");
+
+        window.location.href = "login.html";
+
+        return;
+      }
+      alert(data.message || "Blog not found");
+      return;
+    }
+
+    localStorage.setItem("editBlog", JSON.stringify(data.blog));
+    console.log("Saved editBlog", data.blog);
+
+    window.location.href = "create-blog.html";
+  } catch (error) {
+    console.error("Edit Error:", error);
+
+    alert("Unable to connect to server!");
+  }
 }
 
 const logoutBtn = document.getElementById("logoutBtn");

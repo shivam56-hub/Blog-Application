@@ -26,10 +26,10 @@ if (!blogId) {
         <span class="category">
             ${blog.category}
         </span>
-        <h1 class="blog-details-title>
+        <h1 class="blog-details-title">
             ${blog.title}
         </h1>
-        <p class="blog-details-description>
+        <p class="blog-details-description">
           ${blog.description}
         </p>
         <div class="blog-meta">
@@ -48,7 +48,7 @@ if (!blogId) {
         })
         .catch((error) => {
             console.error("Error", error);
-            blogDetails.innerHTMLm = `
+            blogDetails.innerHTML = `
             <div class="error-message">
             <h2>Unable to load blog</h2>
             <p>Please try again later.</p>

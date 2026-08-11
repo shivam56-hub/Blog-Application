@@ -28,7 +28,15 @@ const blogSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "Published"
+      enum : ["published","draft"],
+      default: "draft"
+    },
+
+    // Logged-in user
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"User",
+      required:true,
     }
   },
   {
