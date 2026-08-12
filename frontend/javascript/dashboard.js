@@ -79,10 +79,7 @@ async function renderDashboard() {
       myBlogs.innerHTML += `
       <div class="dashboard-blog">
 
-                   <img 
-                    src="https://blog-application-086t.onrender.com${blog.image}" 
-                    alt="${blog.title}"
-                  >
+                  <img src="${blog.image}" alt="${blog.title}">
 
                     <div class="blog-info">
 

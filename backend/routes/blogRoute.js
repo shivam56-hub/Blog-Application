@@ -4,22 +4,17 @@ const path = require("path");
 const Blog = require("../models/blog");
 const blog = require("../models/blog");
 const authMiddleware = require("../middleware/authMiddleware");
+const uploadToCloudinary = require("../config/cloudinaryUpload");
 
 const route = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../uploads"));
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + "-" + file.originalname;
-    cb(null, uniqueName);
-  },
-});
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
 });
+
+module.exports = upload;
 
 // To get all the blogs
 
@@ -65,27 +60,26 @@ route.get("/my-blogs", authMiddleware, async (req, res) => {
 // Get single blog by id
 
 route.get("/:id", async (req, res) => {
-    try {
-        const blog = await Blog.findById(req.params.id);
+  try {
+    const blog = await Blog.findById(req.params.id);
 
-        if (!blog) {
-            return res.status(404).json({
-                message: "Blog not found"
-            });
-        }
-
-        res.status(200).json({
-            blog
-        });
-
-    } catch (error) {
-        console.error("Error fetching blog:", error);
-
-        res.status(500).json({
-            message: "Server error",
-            error: error.message
-        });
+    if (!blog) {
+      return res.status(404).json({
+        message: "Blog not found",
+      });
     }
+
+    res.status(200).json({
+      blog,
+    });
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
 });
 
 // route.get("/:id", authMiddleware, async (req, res) => {
@@ -116,47 +110,102 @@ route.get("/:id", async (req, res) => {
 
 // Create Blog
 
-route.post("/", authMiddleware, upload.single("image"), async (req, res) => {
-  try {
-    const { title, category, description, author, date, status } = req.body;
 
-    // Image path
+router.post(
+    "/",
+    authMiddleware,
+    upload.single("image"),
+    async (req, res) => {
+        try {
 
-    const image = req.file ? `/uploads/${req.file.filename}` : "";
+            let imageUrl = "";
 
-    // Required fields
+            if (req.file) {
+                const result = await uploadToCloudinary(req.file.buffer);
 
-    if (!image || !title || !category || !description || !author || !date) {
-      return res.status(400).json({
-        message: "All fields are required...",
-      });
+                imageUrl = result.secure_url;
+            }
+
+            const blog = new Blog({
+                title: req.body.title,
+                category: req.body.category,
+                description: req.body.description,
+                author: req.body.author,
+                date: req.body.date,
+                status: req.body.status,
+
+                image: imageUrl,
+
+                user: req.user.id
+            });
+
+            await blog.save();
+
+            res.status(201).json({
+                message: "Blog created successfully",
+                blog
+            });
+
+        } catch (error) {
+            console.error("Create Blog Error:", error);
+
+            res.status(500).json({
+                message: "Server error",
+                error: error.message
+            });
+        }
     }
+);
 
-    // Create blog in MongoDB
+// route.post("/", authMiddleware, upload.single("image"), async (req, res) => {
+//   try {
+//     let imageUrl = "";
 
-    const blog = await Blog.create({
-      image,
-      title,
-      category,
-      description,
-      author,
-      date,
-      status,
-      user: req.user.id,
-    });
-    res.status(201).json({
-      message: "Blog Created successfully",
-      blog,
-    });
-  } catch (error) {
-    console.error("error");
+//     if (req.file) {
+//       const result = await uploadToCloudinary(req.file.buffer);
 
-    res.status(500).json({
-      message: "Server error",
-      error: error.message,
-    });
-  }
-});
+//       imageUrl = result.secure_url;
+//     }
+
+//     const { title, category, description, author, date, status } = req.body;
+
+//     // Image path
+
+//     const image = req.file ? `/uploads/${req.file.filename}` : "";
+
+//     // Required fields
+
+//     if (!image || !title || !category || !description || !author || !date) {
+//       return res.status(400).json({
+//         message: "All fields are required...",
+//       });
+//     }
+
+//     // Create blog in MongoDB
+
+//     const blog = await Blog.create({
+//       image,
+//       title,
+//       category,
+//       description,
+//       author,
+//       date,
+//       status,
+//       user: req.user.id,
+//     });
+//     res.status(201).json({
+//       message: "Blog Created successfully",
+//       blog,
+//     });
+//   } catch (error) {
+//     console.error("error");
+
+//     res.status(500).json({
+//       message: "Server error",
+//       error: error.message,
+//     });
+//   }
+// });
 
 route.put("/:id", authMiddleware, upload.single("image"), async (req, res) => {
   try {
@@ -179,13 +228,14 @@ route.put("/:id", authMiddleware, upload.single("image"), async (req, res) => {
     const blog = await Blog.findByIdAndUpdate(
       {
         _id: req.params.id,
-        user:  updateData, 
+        user: updateData,
       },
       updateData,
       {
-      new: true,
-      runValidators: true,
-    });
+        new: true,
+        runValidators: true,
+      },
+    );
 
     if (!blog) {
       return res.status(404).json({
@@ -223,10 +273,10 @@ route.patch("/:id/status", authMiddleware, async (req, res) => {
     const blog = await Blog.findByIdAndUpdate(
       {
         _id: req.params.id,
-        user:req.user.id
+        user: req.user.id,
       },
-      { 
-        status
+      {
+        status,
       },
       {
         new: true,
@@ -254,12 +304,10 @@ route.patch("/:id/status", authMiddleware, async (req, res) => {
 // Delete Operations
 route.delete("/:id", authMiddleware, async (req, res) => {
   try {
-    const blog = await Blog.findByIdAndDelete(
-      {
-        _id: req.params.id,
-        user: req.user.id
-      }
-    );
+    const blog = await Blog.findByIdAndDelete({
+      _id: req.params.id,
+      user: req.user.id,
+    });
 
     if (!blog) {
       return res.status(404).json({
@@ -277,7 +325,6 @@ route.delete("/:id", authMiddleware, async (req, res) => {
     });
   }
 });
-
 
 // route.get("/profile", authMiddleware, async (req, res) => {
 //   try{
@@ -300,6 +347,5 @@ route.delete("/:id", authMiddleware, async (req, res) => {
 //     });
 //   }
 // });
-
 
 module.exports = route;

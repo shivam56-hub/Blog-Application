@@ -23,9 +23,7 @@ function disBlogs(blogs) {
     blogs.forEach(blog => {
         blogContainer.innerHTML += `
         <article class="blog-card">
-            <img src = "https://blog-application-086t.onrender.com${blog.image}"
-            alt="${blog.title}"
-            >
+            <img src="${blog.image}" alt="${blog.title}">
 
             <div class="blog-content">
                 <span class="category">${blog.category}</span>
