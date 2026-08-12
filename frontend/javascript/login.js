@@ -37,8 +37,7 @@ loginForm.addEventListener("submit", async function (e) {
     alert(data.message);
     window.location.href = "index.html";
   } catch(error){
-    alert("New version text 1234");
-        // console.error("Login Error: ", error);
-        // alert("Server is not running!| login Error: " + error.message)
+        console.error("Login Error: ", error);
+        alert(error.message)
     }
 });
