@@ -14,8 +14,8 @@ const upload = multer({
   storage: storage,
 });
 
-module.exports = upload;
 
+// module.exports = upload;
 // To get all the blogs
 
 route.get("/", async (req, res) => {
@@ -112,62 +112,45 @@ route.get("/:id", async (req, res) => {
 
 
 router.post(
-    "/",
-    authMiddleware,
-    upload.single("image"),
-    async (req, res) => {
-        try {
+  "/",
+  authMiddleware,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      let imageUrl = "";
 
-            const {
-                title,
-                category,
-                description,
-                author,
-                date,
-                status
-            } = req.body;
+      if (req.file) {
+        const result = await uploadToCloudinary(req.file.buffer);
+        imageUrl = result.secure_url;
+      }
 
-            if (!title || !category || !description || !author || !date) {
-                return res.status(400).json({
-                    message: "All fields are required",
-                });
-            }
+      const blog = new Blog({
+        title: req.body.title,
+        category: req.body.category,
+        description: req.body.description,
+        author: req.body.author,
+        date: req.body.date,
+        status: req.body.status,
+        image: imageUrl,
+        user: req.user.id
+      });
 
-            let imageUrl = "";
+      await blog.save();
 
-            if (req.file) {
-                const result = await uploadToCloudinary(req.file.buffer);
+      res.status(201).json({
+        message: "Blog created successfully",
+        blog
+      });
 
-                imageUrl = result.secure_url;
-            }
+    } catch (error) {
+      console.error("Create Blog Error:", error);
 
-            const blog = new Blog({
-                title,
-                category,
-                description,
-                author,
-                date,
-                status,
-                image: imageUrl,
-                user: req.user.id
-            });
-
-            await blog.save();
-
-            res.status(201).json({
-                message: "Blog created successfully",
-                blog
-            });
-
-        } catch (error) {
-            console.error("Create Blog Error:", error);
-
-            res.status(500).json({
-                message: "Server error",
-                error: error.message
-            });
-        }
+      res.status(500).json({
+        message: "Server error",
+        error: error.message
+      });
     }
+  }
 );
 // route.post("/", authMiddleware, upload.single("image"), async (req, res) => {
 //   try {
@@ -361,4 +344,5 @@ route.delete("/:id", authMiddleware, async (req, res) => {
 //   }
 // });
 
+module.exports = upload;
 module.exports = route;
