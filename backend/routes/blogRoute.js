@@ -122,6 +122,7 @@ router.post(
       if (req.file) {
         const result = await uploadToCloudinary(req.file.buffer);
         imageUrl = result.secure_url;
+        console.log("Cloudinary URL:", result.secure_url);
       }
 
       const blog = new Blog({
