@@ -34,7 +34,7 @@ registerForm.addEventListener("submit", async function (e) {
     }
     catch(error){
         console.error("Register Error: ", error);
-        alert("Server is not running!| Register Error: "+ error.message)
+        alert("Server is not running!| Register Error: " + error.message)
     }
 })
 
