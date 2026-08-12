@@ -227,6 +227,7 @@ async function editBlog(id) {
 
     const data = await response.json();
 
+    console.log("Edit response:", response);
     console.log("Edit response:", data);
 
     if (!response.ok) {
@@ -251,7 +252,7 @@ async function editBlog(id) {
   } catch (error) {
     console.error("Edit Error:", error);
 
-    alert("Unable to connect to server!");
+    alert("Unable to connect to server! | Edit Error:" + error.message);
   }
 }
 
