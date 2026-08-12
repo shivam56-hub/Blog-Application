@@ -155,7 +155,7 @@ npm start
 
 3. Run npm Start for backend server start
    - The Backend will run on:
-     http://localhost:5000
+     https://blog-application-086t.onrender.com
 4. Open `index.html` in your browser or use the VS Code Live Server extension.
    - The frontend will run on:
      http://127.0.0.1:5500

@@ -8,7 +8,7 @@ const blogId = params.get("id");
 if (!blogId) {
     blogDetails.innerHTML = "<h2>Blog not found </h2>";
 } else {
-    fetch(`http://localhost:5000/api/blogs/${blogId}`)
+    fetch(`https://blog-application-086t.onrender.com/api/blogs/${blogId}`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Blog not found");
@@ -20,7 +20,7 @@ if (!blogId) {
             blogDetails.innerHTML = `
         <img 
           class="blog-details-image"
-          src="http://localhost:5000${blog.image}" 
+          src="https://blog-application-086t.onrender.com${blog.image}" 
           alt="${blog.title}"
         >
         <span class="category">

@@ -9,7 +9,7 @@ registerForm.addEventListener("submit", async function (e) {
 
     try {
         const response = await fetch(
-            "http://localhost:5000/api/auth/register",
+            "https://blog-application-086t.onrender.com/api/auth/register",
             {
                 method :"POST",
                 headers:{
@@ -38,17 +38,3 @@ registerForm.addEventListener("submit", async function (e) {
     }
 })
 
-// registerBtn.addEventListener("click", () => {
-    // const name = document.getElementById("name").value;
-    // const email = document.getElementById("email").value;
-    // const password = document.getElementById("password").value;
-
-//     const user = {
-//         name : name,
-//         email : email,
-//         password : password
-//     };
-//     localStorage.setItem("user",JSON.stringify(user));
-
-//     alert("Registration successful!")
-// });

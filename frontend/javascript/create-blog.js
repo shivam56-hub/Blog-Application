@@ -73,7 +73,7 @@ blogForm.addEventListener("submit", async function (e) {
       // PUT request
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/blogs/${editBlogData._id}`,
+        `https://blog-application-086t.onrender.com/api/blogs/${editBlogData._id}`,
         {
           method: "PUT",
           headers: {
@@ -154,7 +154,7 @@ blogForm.addEventListener("submit", async function (e) {
     formData.append("status", document.getElementById("status").value);
 
     const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:5000/api/blogs", {
+    const response = await fetch("https://blog-application-086t.onrender.com/api/blogs", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

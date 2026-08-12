@@ -23,7 +23,7 @@ function disBlogs(blogs) {
     blogs.forEach(blog => {
         blogContainer.innerHTML += `
         <article class="blog-card">
-            <img src = "http://localhost:5000${blog.image}"
+            <img src = "https://blog-application-086t.onrender.com${blog.image}"
             alt="${blog.title}"
             >
 
@@ -40,7 +40,7 @@ function disBlogs(blogs) {
     });
 }
 if (blogContainer) {
-   fetch("http://localhost:5000/api/blogs")
+   fetch("https://blog-application-086t.onrender.com/api/blogs")
    .then(response => response.json())
    .then(data => {
     if(!data.blogs){

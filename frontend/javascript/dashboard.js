@@ -38,7 +38,7 @@ async function renderDashboard() {
       alert("Please login First");
       window.location.href = "login.html";
     }
-    const response = await fetch("http://localhost:5000/api/blogs/my-blogs", {
+    const response = await fetch("https://blog-application-086t.onrender.com/api/blogs/my-blogs", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -80,7 +80,7 @@ async function renderDashboard() {
       <div class="dashboard-blog">
 
                    <img 
-                    src="http://localhost:5000${blog.image}" 
+                    src="https://blog-application-086t.onrender.com${blog.image}" 
                     alt="${blog.title}"
                   >
 
@@ -137,7 +137,7 @@ async function toggleStatus(id, currentStatus) {
   try {
     const token = localStorage.getItem("token");
     const response = await fetch(
-      `http://localhost:5000/api/blogs/${id}/status`,
+      `https://blog-application-086t.onrender.com/api/blogs/${id}/status`,
       {
         method: "PATCH",
         headers: {
@@ -179,7 +179,7 @@ async function deleteBlog(id) {
 
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:5000/api/blogs/${id}`, {
+    const response = await fetch(`https://blog-application-086t.onrender.com/api/blogs/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -217,7 +217,7 @@ async function editBlog(id) {
       window.location.href = "login.html";
       return;
     }
-    const response = await fetch(`http://localhost:5000/api/blogs/${id}`, {
+    const response = await fetch(`https://blog-application-086t.onrender.com/api/blogs/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

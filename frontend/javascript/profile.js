@@ -8,7 +8,7 @@ if(!token){
 async function loadProfile(){
     try {
         const response = await fetch(
-            `http://localhost:5000/api/auth/profile`,
+            `https://blog-application-086t.onrender.com/api/auth/profile`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
