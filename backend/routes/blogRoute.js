@@ -113,6 +113,8 @@ route.post(
 
       if (req.file) {
         const result = await uploadToCloudinary(req.file.buffer);
+            console.log("Cloudinary upload successful:");
+            console.log(result.secure_url);
         imageUrl = result.secure_url;
         console.log("Cloudinary URL:", result.secure_url);
       }
