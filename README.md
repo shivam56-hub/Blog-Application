@@ -1,6 +1,7 @@
 # 📝 Blog Application
 
-A full-stack Blog Application built with HTML, CSS, JavaScript, Node.js, Express.js, and MongoDB. The application provides JWT-based authentication, protected user dashboards, profile management, blog CRUD operations, image uploads, draft/published status management, and dynamic blog search.
+A full-stack Blog Application built with HTML, CSS, JavaScript, Node.js, Express.js, MongoDB, and Cloudinary. Features include JWT authentication, protected dashboards, blog CRUD operations, image uploads, draft/published status, and blog search.
+
 ---
 
 ## 🚀 Features
