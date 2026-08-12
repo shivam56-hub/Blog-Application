@@ -211,7 +211,7 @@ npm start
 ## 👨‍💻 Author
 
 **Shivam Kumar**
-**Full Stack / MERN Developer
+Full Stack / MERN Developer
 
 * GitHub: https://github.com/shivam56-hub
 * LinkedIn: https://www.linkedin.com/in/shivam-kumar1105
