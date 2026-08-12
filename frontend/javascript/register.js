@@ -33,8 +33,8 @@ registerForm.addEventListener("submit", async function (e) {
         window.location.href = "login.html";
     }
     catch(error){
-        console.error(error);
-        alert("Server is not running!")
+        console.error("Register Error: ", error);
+        alert("Server is not running!| Register Error: "+ error.message)
     }
 })
 

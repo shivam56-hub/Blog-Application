@@ -36,8 +36,8 @@ loginForm.addEventListener("submit", async function (e) {
     localStorage.setItem("user", JSON.stringify(data.user));
     alert(data.message);
     window.location.href = "index.html";
-  } catch (error) {
-    console.error("Login error: ", error);
-    alert("Server is not running!");
-  }
+  } catch(error){
+        console.error("Login Error: ", error);
+        alert("Server is not running!| login Error: "+ error.message)
+    }
 });
