@@ -153,55 +153,6 @@ router.post(
     }
   }
 );
-// route.post("/", authMiddleware, upload.single("image"), async (req, res) => {
-//   try {
-//     let imageUrl = "";
-
-//     if (req.file) {
-//       const result = await uploadToCloudinary(req.file.buffer);
-
-//       imageUrl = result.secure_url;
-//     }
-
-//     const { title, category, description, author, date, status } = req.body;
-
-//     // Image path
-
-//     const image = req.file ? `/uploads/${req.file.filename}` : "";
-
-//     // Required fields
-
-//     if (!image || !title || !category || !description || !author || !date) {
-//       return res.status(400).json({
-//         message: "All fields are required...",
-//       });
-//     }
-
-//     // Create blog in MongoDB
-
-//     const blog = await Blog.create({
-//       image,
-//       title,
-//       category,
-//       description,
-//       author,
-//       date,
-//       status,
-//       user: req.user.id,
-//     });
-//     res.status(201).json({
-//       message: "Blog Created successfully",
-//       blog,
-//     });
-//   } catch (error) {
-//     console.error("error");
-
-//     res.status(500).json({
-//       message: "Server error",
-//       error: error.message,
-//     });
-//   }
-// });
 
 route.put("/:id", authMiddleware, upload.single("image"), async (req, res) => {
   try {
