@@ -118,6 +118,21 @@ router.post(
     async (req, res) => {
         try {
 
+            const {
+                title,
+                category,
+                description,
+                author,
+                date,
+                status
+            } = req.body;
+
+            if (!title || !category || !description || !author || !date) {
+                return res.status(400).json({
+                    message: "All fields are required",
+                });
+            }
+
             let imageUrl = "";
 
             if (req.file) {
@@ -127,15 +142,13 @@ router.post(
             }
 
             const blog = new Blog({
-                title: req.body.title,
-                category: req.body.category,
-                description: req.body.description,
-                author: req.body.author,
-                date: req.body.date,
-                status: req.body.status,
-
+                title,
+                category,
+                description,
+                author,
+                date,
+                status,
                 image: imageUrl,
-
                 user: req.user.id
             });
 
@@ -156,7 +169,6 @@ router.post(
         }
     }
 );
-
 // route.post("/", authMiddleware, upload.single("image"), async (req, res) => {
 //   try {
 //     let imageUrl = "";
@@ -222,7 +234,8 @@ route.put("/:id", authMiddleware, upload.single("image"), async (req, res) => {
 
     // if new image uploaded
     if (req.file) {
-      updateData.image = `/uploads/${req.file.filename}`;
+      const result = await uploadToCloudinary(req.file.buffer);
+      updateData.image = result.secure_url;
     }
 
     const blog = await Blog.findByIdAndUpdate(
