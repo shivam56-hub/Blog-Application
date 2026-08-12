@@ -5,6 +5,7 @@ const Blog = require("../models/blog");
 const blog = require("../models/blog");
 const authMiddleware = require("../middleware/authMiddleware");
 const uploadToCloudinary = require("../config/cloudinaryUpload");
+const cloudinary = require("../config/cloudinary")
 
 const route = express.Router();
 
@@ -14,7 +15,24 @@ const upload = multer({
   storage: storage,
 });
 
+// const uploadToCloudinary = (buffer) => {
+//   return new Promise((resolve, reject) => {
+//     const stream = cloudinary.uploader.upload_stream(
+//       {
+//         folder: "blog-images",
+//       },
+//       (error, result) => {
+//         if (error) {
+//           reject(error);
+//         } else {
+//           resolve(result);
+//         }
+//       }
+//     );
 
+//     stream.end(buffer);
+//   });
+// };
 // module.exports = upload;
 // To get all the blogs
 
@@ -82,36 +100,10 @@ route.get("/:id", async (req, res) => {
   }
 });
 
-// route.get("/:id", authMiddleware, async (req, res) => {
-//   try {
-//     const blog = await Blog.findById(
-//       {
-//         _id: req.params.id,
-//         user: req.user.id
-//       },
-//     );
-
-//     if (!blog) {
-//       return res.status(404).json({
-//         message: "Blog not found",
-//       });
-//     }
-//     res.status(201).json({
-//       blog,
-//     });
-//   } catch (error) {
-//     console.error("Error fetching blogs:", error);
-//     res.status(500).json({
-//       message: "Server error",
-//       error: error.message,
-//     });
-//   }
-// });
 
 // Create Blog
 
-
-router.post(
+route.post(
   "/",
   authMiddleware,
   upload.single("image"),
