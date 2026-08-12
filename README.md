@@ -1,6 +1,6 @@
 # 📝 Blog Application
 
-A full-stack Blog Application that allows users to register, login, create and manage their own blogs. The application uses JWT authentication for secure user access and MongoDB for storing users and blog data.
+A full-stack Blog Application built with HTML, CSS, JavaScript, Node.js, Express.js, and MongoDB. The application provides JWT-based authentication, protected user dashboards, profile management, blog CRUD operations, image uploads, draft/published status management, and dynamic blog search.
 
 ---
 
@@ -40,7 +40,9 @@ A full-stack Blog Application that allows users to register, login, create and m
 - Draft blogs count
 - Display logged-in user's blogs
 - Edit and delete blog options
-## 🛠️ Technologies Used
+
+
+### 🛠️ Technologies Used
 
 ### Frontend
 - HTML5
@@ -69,7 +71,7 @@ A full-stack Blog Application that allows users to register, login, create and m
 - Git & GitHub
 
 
-## 📁 Project Structure
+### 📁 Project Structure
 
 ```text
 Blog-Application/
@@ -80,7 +82,6 @@ Blog-Application/
 │   ├── models/
 │   ├── routes/
 │   ├── uploads/
-│   ├── .env
 │   ├── .gitignore
 │   ├── package.json
 │   └── server.js
@@ -100,17 +101,18 @@ Blog-Application/
 
 ## 🔗 REST APIs
 
-1. User Registration
-2. User Login
-3. Create Blog
-
-### 🔐 Authentication
 - User Registration
 - User Login
-- Logout functionality
-- Protected Dashboard access
+- User Profile
+- Create Blog
+- Get Blogs
+- Get Blog by ID
+- Update Blog
+- Delete Blog
+- Update Blog Status
 
-### 📝 Blog Management
+
+## 📝 Blog Management
 - Create new blog posts
 - View blogs on the Home page
 - View blogs on the Dashboard
@@ -120,7 +122,7 @@ Blog-Application/
 - Automatic blog ID generation
 
 
-### 💾 Data Management
+## 💾 Data Management
 - Initial blog data loaded from `Database`
 - Blog data stored in MongoDB
 - Created, edited and deleted blogs remain available after page refresh
@@ -146,22 +148,41 @@ git clone https://github.com/shivam56-hub/Blog-Application.git
 2. Open the project folder
 
 ```bash
-cd frontend
-cd backend 
+cd Blog-Application/backend
+npm install
+npm start
 ```
 
-3. Open `index.html` in your browser or use the VS Code Live Server extension.
-4. Run npm Start for backend server
+3. Run npm Start for backend server start
+   - The Backend will run on:
+     http://localhost:5000
+4. Open `index.html` in your browser or use the VS Code Live Server extension.
+   - The frontend will run on:
+     http://127.0.0.1:5500
 
 ## Create .env
 - Make a .env file in our backend folder
   
-## 🛠️ frontend & Backend Integration
-The frontend communicates with the Express backend using Javascript fetch().
-The frontend currently connects to the backend for:
-   - User Registration
-   - User Login
-   - Blog Creation 
+** Note: Never upload your .env file to Github
+ 
+## Testing
+- The REST APIs were tested using Thunder Client.
+  -Tested functionality includes:
+    - User Registration
+    - User Login
+    - JWT authentication
+    - User Profile
+    - Create blog
+    - Get blog
+    - Update blog
+    - Delete blog
+    - Blog status management
+## Security
+  - Passwords are hashed using bcrypt.
+  - JWT is used for authentication.
+  - Protected routes require a valid authentication token.
+  - .env is excluded from Git tracking.
+  - Sensitive credentials are not stored in the source code.
 
 ## 🎯 Learning Outcomes
 * HTML5 and CSS3
@@ -174,20 +195,23 @@ The frontend currently connects to the backend for:
 * Fetch API
 * CORS
 * HTTP methods
-* connect database(mongoDB)
-* mongooses 
-* multer
+* MongoDB Database Integration
+* Mongoose
+* Multer
 * CRUD
+* JWT 
 
 
 ## 🔮 Future Improvements
 
 * Comment system
 * Like and bookmark features
+* add admin dashboard
 
 ## 👨‍💻 Author
 
 **Shivam Kumar**
+**Full Stack / MERN Developer
 
 * GitHub: https://github.com/shivam56-hub
 * LinkedIn: https://www.linkedin.com/in/shivam-kumar1105
