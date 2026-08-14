@@ -19,7 +19,7 @@ if (!blogId) {
       const blog = data.blog;
       blogDetails.innerHTML = `
 
-       <img src="${blog.image}" alt="${blog.title}">
+       <img src="${blog.image}" alt="${blog.title}" class="blog-details-image">
        
         <span class="category">
             ${blog.category}
