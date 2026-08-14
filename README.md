@@ -1,6 +1,7 @@
 # 📝 Blog Application
 
-A full-stack Blog Application built with HTML, CSS, JavaScript, Node.js, Express.js, and MongoDB. The application provides JWT-based authentication, protected user dashboards, profile management, blog CRUD operations, image uploads, draft/published status management, and dynamic blog search.
+A full-stack Blog Application built with HTML, CSS, JavaScript, Node.js, Express.js, MongoDB, and Cloudinary. Features include JWT authentication, protected dashboards, blog CRUD operations, image uploads, draft/published status, and blog search.
+
 ---
 
 ## 🚀 Features
@@ -61,6 +62,8 @@ A full-stack Blog Application built with HTML, CSS, JavaScript, Node.js, Express
 - Express.js
 - REST API
 - CORS
+- Multer
+- Cloudinary
 
 ### Database
 
@@ -145,6 +148,13 @@ Blog-Application/
 - Navigation based on login state
 
 ---
+## 🖼️ Image Storage
+
+- Blog images are uploaded using Multer.
+- Images are stored securely on Cloudinary.
+- Cloudinary provides a permanent HTTPS URL for each uploaded image.
+- The Cloudinary image URL is stored in MongoDB.
+- This prevents images from being lost when the backend server is redeployed.
 
 ## 📦 Installation
 
@@ -199,6 +209,7 @@ git clone https://github.com/shivam56-hub/Blog-Application.git
 - Database: MongoDB Atlas
 
 The frontend communicates with the deployed backend through REST APIs.
+
 ## Security
 
 -  Passwords are hashed using bcrypt.
@@ -206,6 +217,8 @@ The frontend communicates with the deployed backend through REST APIs.
 -  Protected routes require a valid JWT token.
 -  User-specific blog access is enforced through authentication.
 -  Sensitive credentials are not stored in the source code.
+- Cloudinary API credentials are stored securely using environment variables.
+- Cloudinary credentials are not committed to GitHub.
 -  .env is excluded from Git tracking.
 
 ---
@@ -229,6 +242,9 @@ The frontend communicates with the deployed backend through REST APIs.
 - Client-Server Communication
 - Frontend-Backend Integration
 - Git & GitHub
+- Cloudinary image storage
+- Multer file handling
+- Environment variable management
 - Deployment using Vercel and Render
 
 ## 🔮 Future Improvements
